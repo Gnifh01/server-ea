@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 //creazione dello Schema Utente (una tabella tipo)
 const userSchema = new mongoose.Schema( 
   {
-    email: String,          //valori
+    email: String,    
+    username: String,        //valori
     password: String,       //valori
   },
   {

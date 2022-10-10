@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/v1/user", require("./routers/user.route"));
+app.use("/EA-server", require("./routers/user.route"));
 
 dbConnection();
 
