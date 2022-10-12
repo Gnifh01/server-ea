@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 //FUNZIONE PER COLLEGARSI AL DB
 module.exports = async () => {
   try {
-    await mongoose.connect(process.env.DB_URL2, {
+    await mongoose.connect(process.env.DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

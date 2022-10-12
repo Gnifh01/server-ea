@@ -2,8 +2,9 @@ const User = require("../database/models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+
 module.exports.signup = async (request, response) => {
-  let { email, password, username } = request.body;
+  let { email, password,username } = request.body;
 
   try {
     // SE LA PASSWORD È MINORE DI 8 CARATTERI LANCIA L'ERRORE
@@ -19,7 +20,8 @@ module.exports.signup = async (request, response) => {
     } else {
       //CRITTOGRAFARE LA PASSWORD CON BCRYPT
       password = await bcrypt.hash(password, 12);
-      let userData = new User({ email: email, password: password, username: username});
+            let userData = new User({ email: email, password: password, username: username });
+
       await userData.save();
 
       response.send({
@@ -61,9 +63,9 @@ module.exports.signin = async (request, response) => {
           process.env.SECRET_KEY, //SECRET KEY È
           { expiresIn: "1d" } //IMPOSTIAMO LA SCADENZA DEL TOKEN AD 1d OVVERO UN GIORNO
         );
-        response.send({
-          status: 200,
-          message: "Login effettuato correttamente",
+        response.send({ 
+          user: user.username,
+          message: "Login effettuato",
           body: token, //RITONA IL TOKEN (DA SALVARE SUCCESSIVAMENTE NEL LOCALSTORAGE)
         });
       }
