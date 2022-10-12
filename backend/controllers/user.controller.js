@@ -1,10 +1,9 @@
 const User = require("../database/models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { request, response } = require("express");
 
 module.exports.signup = async (request, response) => {
-  let { email, password } = request.body;
+  let { email, password, username } = request.body;
 
   try {
     // SE LA PASSWORD È MINORE DI 8 CARATTERI LANCIA L'ERRORE
@@ -20,13 +19,13 @@ module.exports.signup = async (request, response) => {
     } else {
       //CRITTOGRAFARE LA PASSWORD CON BCRYPT
       password = await bcrypt.hash(password, 12);
-      let userData = new User({ email: email, password: password });
+      let userData = new User({ email: email, password: password, username: username});
       await userData.save();
 
       response.send({
         status: 200,
         message: "Utente inserito corretamente!",
-        body: {},
+        body: {}, 
       });
     }
   } catch (error) {
@@ -74,7 +73,7 @@ module.exports.signin = async (request, response) => {
   }
 };
 
-module.exports.delete = async (request, response) => {
+/* module.exports.delete = async (request, response) => {
   let { email, password } = request.body;
 
   try {
@@ -94,4 +93,4 @@ module.exports.delete = async (request, response) => {
   } catch (error) {
     response.send({ status: 400, message: error.message, body: {} });
   }
-};
+}; */
